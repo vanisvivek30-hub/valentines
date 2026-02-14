@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine?</title>
+    <style>
+        /* CSS - Making it look pretty */
+        body {
+            background-color: #fff0f3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden; /* Prevents scrollbars if the button moves near edges */
+        }
+
+        .card {
+            text-align: center;
+            background: white;
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(255, 75, 110, 0.2);
+            max-width: 400px;
+            width: 90%;
+        }
+
+        h1 {
+            color: #ff4b6e;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            align-items: center;
+            height: 100px; /* Space for the moving button */
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border-radius: 15px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+
+        #yes-btn {
+            background-color: #ff4b6e;
+            color: white;
+            animation: pulse 1.5s infinite;
+        }
+
+        #no-btn {
+            background-color: #f0f0f0;
+            color: #666;
+            z-index: 10; /* Ensures it stays above other elements when moving */
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #message h1 {
+            color: #2ecc71;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card" id="main-card">
+        <h1 id="question">Will you be my Valentine?</h1>
+        <div class="buttons">
+            <button id="yes-btn">Yes!</button>
+            <button id="no-btn">No</button>
+        </div>
+    </div>
+
+    <div class="card hidden" id="success-message">
+        <h1>OKAY! ❤️</h1>
+        <p>I had enough time to build and deploy this entire site<br>but still don't have enough time for love.</p>
+        <h1>Sorry</h1>
+        <p>Buy the way</p>
+        <h1>Happy Valentine's Day cutie💕🫶</h1>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('no-btn');
+        const yesBtn = document.getElementById('yes-btn');
+        const mainCard = document.getElementById('main-card');
+        const successMessage = document.getElementById('success-message');
+
+        // Logic to move the 'No' button
+        noBtn.addEventListener('mouseover', () => {
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+        });
+
+        // Logic for when 'Yes' is clicked
+        yesBtn.addEventListener('click', () => {
+            mainCard.classList.add('hidden');
+            successMessage.classList.remove('hidden');
+            
+            // Optional: Alert or console log
+            console.log("Mission Successful!");
+        });
+    </script>
+</body>
+</html>
